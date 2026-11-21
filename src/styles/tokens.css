@@ -1,0 +1,94 @@
+/**
+ * Tokens do Figma: Site CAIXA Consórcio — Handoff v.2
+ * fileKey: OAhUEvtMM2sBDzUQLJfUjR
+ * Collections: Caixa / Paleta · Tokens (bs) · Tipografia
+ */
+
+:root {
+  /* —— Paleta —— */
+  --azul-100: #a9d7ff;
+  --azul-200: #3786ff;
+  --azul-300: #0033ff;
+  --azul-400: #001fbb;
+  --azul-500: #001364;
+  --laranja-100: #fec07a;
+  --laranja-200: #ffa743;
+  --laranja-300: #ff8a16;
+  --laranja-400: #ff7b00;
+  --laranja-500: #d85b03;
+  --apoio-verde: #00b62e;
+  --apoio-verde-escuro: #206946;
+  --neutro-branco: #ffffff;
+  --neutro-preto: #060709;
+  --neutro-900: #232b35;
+  --neutro-700: #3a4859;
+  --neutro-600: #616d7a;
+  --neutro-200: #ebedee;
+  --neutro-100: #f5f6f7;
+  --funcional-vermelho: #cf0e0e;
+  --funcional-vermelho-100: #fae7e7;
+  --tint-azul-50: #e6ebff;
+  --tint-laranja-50: #fff3e8;
+  --tint-verde-50: #e6f8ea;
+  --azul-500-25: #bfc4d8;
+  --azul-500-50: #8089b2;
+
+  /* —— Semânticos (bs) —— */
+  --bs-body-color: var(--neutro-900);
+  --bs-body-bg: var(--neutro-branco);
+  --bs-secondary-color: var(--neutro-700);
+  --bs-secondary-bg: var(--neutro-200);
+  --bs-tertiary-color: var(--neutro-600);
+  --bs-primary: var(--azul-300);
+  --bs-primary-hover: var(--azul-400);
+  --bs-primary-subtle: var(--tint-azul-50);
+  --bs-secondary-brand: var(--laranja-300);
+  --bs-secondary-brand-hover: var(--laranja-400);
+  --bs-success: var(--apoio-verde);
+  --bs-success-subtle: var(--tint-verde-50);
+  --bs-danger: var(--funcional-vermelho);
+  --bs-danger-subtle: var(--funcional-vermelho-100);
+  --bs-warning: var(--laranja-300);
+  --bs-warning-subtle: var(--tint-laranja-50);
+  --bs-border: var(--azul-500-50);
+  --bs-border-subtle: var(--neutro-200);
+  --bs-navy: var(--azul-500);
+  --bs-surface-soft: var(--neutro-100);
+
+  /* —— Aliases de produto (compat) —— */
+  --blue: var(--bs-primary);
+  --blue-deep: var(--bs-navy);
+  --blue-soft: var(--bs-primary-subtle);
+  --orange: var(--bs-secondary-brand);
+  --orange-hover: var(--bs-secondary-brand-hover);
+  --orange-active: var(--laranja-500);
+  --ink: var(--bs-body-color);
+  --ink-muted: var(--bs-tertiary-color);
+  --line: var(--bs-border-subtle);
+  --line-soft: var(--bs-border);
+  --bg: var(--bs-body-bg);
+  --bg-soft: var(--bs-surface-soft);
+  --success: var(--bs-success);
+  --warning: var(--bs-warning);
+  --danger: var(--bs-danger);
+
+  /* —— Layout —— */
+  --header-h: 80px;
+  --container: 1280px;
+  --section-max: 1280px;
+  --radius: 8px;
+  --radius-sm: 4px;
+  --radius-lg: 16px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --font: "CAIXA Std", "Caixa Text", sans-serif;
+  --font-display: "CAIXA Std", "Caixa Display", sans-serif;
+  --shadow: 0 8px 28px rgba(35, 43, 53, 0.12);
+  --shadow-sm: 0 2px 10px rgba(35, 43, 53, 0.08);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --admin-sidebar: 260px;
+}
