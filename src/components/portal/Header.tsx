@@ -4,16 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/ui/Button";
 import { useStore } from "@/lib/store";
 
 const NAV = [
   { href: "/", label: "Início" },
   { href: "/a-marca", label: "A marca" },
   { href: "/identidade-visual", label: "Identidade visual" },
-  { href: "/guias", label: "Guias e orientações" },
-  { href: "/biblioteca", label: "Biblioteca de assets" },
+  { href: "/guias", label: "Guias" },
+  { href: "/biblioteca", label: "Biblioteca" },
   { href: "/templates", label: "Templates" },
-  { href: "/ajuda", label: "Central de ajuda" },
+  { href: "/ajuda", label: "Ajuda" },
 ];
 
 export function Header() {
@@ -36,6 +37,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
+              className="nav-link"
               aria-current={isActive(item.href) ? "page" : undefined}
             >
               {item.label}
@@ -44,23 +46,23 @@ export function Header() {
         </nav>
 
         <div className="header-actions">
-          <Link className="btn btn-outline btn-sm hide-sm" href="/biblioteca">
+          <Button className="hide-sm" href="/biblioteca" variant="outline" size="sm">
             Biblioteca
-          </Link>
-          <Link className="btn btn-secondary btn-sm hide-sm" href="/admin">
+          </Button>
+          <Button className="hide-sm" href="/admin" variant="secondary" size="sm">
             Painel
-          </Link>
-          <span className="hide-sm" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
-            {currentUser.name.split(" ")[0]}
-          </span>
-          <button
-            className="btn btn-soft btn-sm menu-toggle"
+          </Button>
+          <span className="header-user hide-sm">{currentUser.name.split(" ")[0]}</span>
+          <Button
+            className="menu-toggle"
+            variant="soft"
+            size="sm"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
           >
             Menu
-          </button>
+          </Button>
         </div>
       </div>
 

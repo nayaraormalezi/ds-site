@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { AssetCard } from "@/components/portal/AssetCard";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { ContentCard } from "@/components/ui/ContentCard";
+import { SearchField } from "@/components/ui/SearchField";
 import { useStore } from "@/lib/store";
 import { formatDate, isExternallyVisible } from "@/lib/utils";
 
@@ -15,24 +16,28 @@ const QUICK = [
     eyebrow: "Assets",
     title: "Biblioteca de assets",
     desc: "Busque, filtre e baixe materiais aprovados.",
+    icon: "/brand/icon-document.svg",
   },
   {
     href: "/identidade-visual",
     eyebrow: "Diretrizes",
     title: "Identidade visual",
     desc: "Logo, cores, tipografia e aplicações.",
+    icon: "/brand/icon-notebook.svg",
   },
   {
     href: "/guias",
     eyebrow: "Documentos",
     title: "Guias e orientações",
     desc: "Tom de voz, campanhas e comunicação.",
+    icon: "/brand/icon-assembly.svg",
   },
   {
     href: "/templates",
     eyebrow: "Modelos",
     title: "Templates",
     desc: "Arquivos editáveis para agilizar entregas.",
+    icon: "/brand/icon-group.svg",
   },
 ];
 
@@ -57,54 +62,85 @@ export default function HomePage() {
   return (
     <>
       <section className="home-hero">
-        <div className="container">
-          <p className="section-label" style={{ color: "#F39200" }}>
-            Portal de Marca e Assets
-          </p>
-          <h1>Tudo para comunicar a nossa marca.</h1>
-          <p className="lead">
-            Encontre materiais oficiais, diretrizes e recursos para suas
-            produções.
-          </p>
-          <form
-            className="search-field"
-            role="search"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const q = query.trim();
-              router.push(q ? `/biblioteca?q=${encodeURIComponent(q)}` : "/biblioteca");
-            }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" />
-            </svg>
-            <label className="sr-only" htmlFor="home-search">
-              Buscar materiais
-            </label>
-            <input
+        <div className="home-hero__banner">
+          <Image
+            className="home-hero__bg"
+            src="/brand/hero-banner.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+          />
+          <div className="home-hero__overlay" />
+          <div className="container home-hero__content">
+            <div className="home-hero__copy">
+              <p className="home-hero__brand">CAIXA Consórcio</p>
+              <h1>Tudo para comunicar a nossa marca.</h1>
+              <p className="lead">
+                Encontre materiais oficiais, diretrizes e recursos para suas
+                produções.
+              </p>
+            </div>
+            <p className="home-hero__aside">
+              Portal de marca e assets — fonte única e confiável para
+              agências, parceiros e times internos.
+            </p>
+            <div className="home-hero__actions">
+              <Button href="/biblioteca" variant="secondary" size="lg">
+                Ir para biblioteca
+              </Button>
+              <Button href="/identidade-visual" variant="on-color" size="lg">
+                Ver identidade visual
+              </Button>
+            </div>
+            <SearchField
               id="home-search"
+              className="home-hero__search"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={setQuery}
               placeholder="Busque por nome, categoria, campanha ou palavra-chave"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const q = query.trim();
+                router.push(
+                  q ? `/biblioteca?q=${encodeURIComponent(q)}` : "/biblioteca"
+                );
+              }}
+              action={
+                <Button type="submit" variant="secondary" size="sm">
+                  Buscar
+                </Button>
+              }
             />
-            <Button type="submit" variant="secondary" size="sm">
-              Buscar
-            </Button>
-          </form>
+          </div>
         </div>
       </section>
 
       <div className="container">
-        <div className="quick-grid">
-          {QUICK.map((item) => (
-            <Link key={item.href} href={item.href} className="quick-card">
-              <div className="eyebrow">{item.eyebrow}</div>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-            </Link>
-          ))}
-        </div>
+        <section className="section-block section-block--tight">
+          <div className="section-head">
+            <div>
+              <p className="section-label">Acesso rápido</p>
+              <h2>Comece por aqui</h2>
+            </div>
+          </div>
+          <div className="quick-grid">
+            {QUICK.map((item) => (
+              <ContentCard
+                key={item.href}
+                href={item.href}
+                variant="icon"
+                eyebrow={item.eyebrow}
+                title={item.title}
+                description={item.desc}
+                actionLabel="Acessar"
+                icon={
+                  <Image src={item.icon} alt="" width={32} height={32} />
+                }
+              />
+            ))}
+          </div>
+        </section>
 
         <section className="section-block">
           <div className="section-head">
@@ -112,14 +148,14 @@ export default function HomePage() {
               <p className="section-label">Destaques</p>
               <h2>Materiais em destaque</h2>
             </div>
-            <Button href="/biblioteca" variant="outline" size="sm">
+            <Button href="/biblioteca" variant="outline" size="sm" externalIcon>
               Ver biblioteca
             </Button>
           </div>
           {!ready ? (
             <div className="grid-cards">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="skeleton" style={{ height: 280 }} />
+                <div key={i} className="skeleton" style={{ height: 360 }} />
               ))}
             </div>
           ) : (
@@ -144,38 +180,32 @@ export default function HomePage() {
               <p className="section-label">Campanhas</p>
               <h2>Campanhas vigentes</h2>
             </div>
-            <Button href="/campanhas" variant="outline" size="sm">
+            <Button href="/campanhas" variant="outline" size="sm" externalIcon>
               Ver todas
             </Button>
           </div>
           <div className="grid-cards">
             {campaigns.map((campaign) => (
-              <Link
+              <ContentCard
                 key={campaign.id}
                 href={`/campanhas/${campaign.id}`}
-                className="card card-interactive campaign-card"
-              >
-                <div
-                  className="thumb"
-                  style={{ background: campaign.coverGradient }}
-                >
-                  <span>{campaign.coverLabel}</span>
-                </div>
-                <div className="campaign-card__body">
-                  <h3>{campaign.name}</h3>
-                  <p>{campaign.description}</p>
-                  <div className="campaign-meta">
-                    <Badge tone="vigente">Vigente</Badge>
-                    <Badge tone="neutral">
-                      {campaign.assetIds.length} materiais
-                    </Badge>
-                    <Badge tone="neutral">
-                      até {formatDate(campaign.endDate)}
-                    </Badge>
+                eyebrow="Campanha vigente"
+                title={campaign.name}
+                description={campaign.description}
+                meta={`até ${formatDate(campaign.endDate)}`}
+                actionLabel="Abrir kit"
+                media={
+                  <div
+                    className="thumb"
+                    style={{
+                      background: campaign.coverGradient,
+                      aspectRatio: "1/1",
+                    }}
+                  >
+                    <span>{campaign.coverLabel}</span>
                   </div>
-                  <span className="btn btn-secondary btn-sm">Abrir kit</span>
-                </div>
-              </Link>
+                }
+              />
             ))}
           </div>
         </section>

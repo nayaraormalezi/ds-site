@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import type { Asset } from "@/lib/types";
 import { formatDate, isDownloadable } from "@/lib/utils";
-import { StatusBadge } from "@/components/ui/Badge";
+import { ContentCard } from "@/components/ui/ContentCard";
+import { Button } from "@/components/ui/Button";
 import { AssetThumb } from "./AssetThumb";
 import { useStore } from "@/lib/store";
 import { downloadAssetFile } from "@/lib/download";
@@ -12,7 +12,6 @@ import { useToast } from "@/components/ui/Toast";
 export function AssetCard({
   asset,
   categoryName,
-  dense,
 }: {
   asset: Asset;
   categoryName?: string;
@@ -24,26 +23,27 @@ export function AssetCard({
   const favored = store.favorites.includes(asset.id);
 
   return (
-    <article className={`card card-interactive asset-card ${dense ? "asset-card--dense" : ""}`}>
-      <Link href={`/biblioteca/${asset.id}`} className="asset-card__media">
-        <AssetThumb gradient={asset.thumbnailGradient} label={asset.thumbnailLabel} />
-      </Link>
-      <div className="asset-card__body">
-        <div className="asset-card__meta">
-          <StatusBadge status={asset.status} />
-          <span>{asset.formats[0]?.format}</span>
-        </div>
-        <h3>
-          <Link href={`/biblioteca/${asset.id}`}>{asset.name}</Link>
-        </h3>
-        {categoryName ? <p className="asset-card__cat">{categoryName}</p> : null}
-        <p className="asset-card__date">Atualizado em {formatDate(asset.updatedAt)}</p>
+    <ContentCard
+      href={`/biblioteca/${asset.id}`}
+      eyebrow={categoryName ?? asset.formats[0]?.format}
+      title={asset.name}
+      description={asset.description}
+      meta={formatDate(asset.updatedAt)}
+      media={
+        <AssetThumb
+          gradient={asset.thumbnailGradient}
+          label={asset.thumbnailLabel}
+          ratio="1/1"
+        />
+      }
+      footer={
         <div className="asset-card__actions">
-          <Link className="btn btn-outline btn-sm" href={`/biblioteca/${asset.id}`}>
+          <Button href={`/biblioteca/${asset.id}`} variant="outline" size="sm">
             Detalhes
-          </Link>
-          <button
-            className="btn btn-secondary btn-sm"
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
             disabled={!canDownload}
             onClick={() => {
               downloadAssetFile(asset, asset.formats[0]);
@@ -52,9 +52,10 @@ export function AssetCard({
             }}
           >
             Baixar
-          </button>
-          <button
-            className="btn btn-ghost btn-sm"
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             aria-label={favored ? "Remover dos favoritos" : "Adicionar aos favoritos"}
             onClick={() => {
               toggleFavorite(asset.id);
@@ -62,9 +63,9 @@ export function AssetCard({
             }}
           >
             {favored ? "★" : "☆"}
-          </button>
+          </Button>
         </div>
-      </div>
-    </article>
+      }
+    />
   );
 }

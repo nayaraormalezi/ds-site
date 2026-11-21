@@ -4,41 +4,42 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 
+/* Paleta oficial — Figma Handoff v.2 (Caixa / Paleta) */
 const COLORS = [
   {
-    name: "Azul CAIXA",
-    hex: "#005CA9",
-    rgb: "0, 92, 169",
-    cmyk: "100, 68, 0, 7",
+    name: "Azul 300 (Primary)",
+    hex: "#0033FF",
+    rgb: "0, 51, 255",
+    cmyk: "100, 80, 0, 0",
   },
   {
-    name: "Azul profundo",
-    hex: "#003D73",
-    rgb: "0, 61, 115",
-    cmyk: "100, 78, 20, 28",
+    name: "Azul 500 (Navy)",
+    hex: "#001364",
+    rgb: "0, 19, 100",
+    cmyk: "100, 90, 20, 40",
   },
   {
-    name: "Laranja",
-    hex: "#F39200",
-    rgb: "243, 146, 0",
-    cmyk: "0, 48, 100, 0",
+    name: "Laranja 300 (Secondary brand)",
+    hex: "#FF8A16",
+    rgb: "255, 138, 22",
+    cmyk: "0, 55, 95, 0",
   },
   {
-    name: "Ink",
+    name: "Neutro 900",
     hex: "#232B35",
     rgb: "35, 43, 53",
     cmyk: "70, 55, 45, 55",
   },
   {
-    name: "Ink muted",
+    name: "Neutro 600",
     hex: "#616D7A",
     rgb: "97, 109, 122",
     cmyk: "55, 35, 30, 15",
   },
   {
-    name: "Fundo suave",
-    hex: "#F5F7F9",
-    rgb: "245, 247, 249",
+    name: "Neutro 100",
+    hex: "#F5F6F7",
+    rgb: "245, 246, 247",
     cmyk: "3, 1, 1, 0",
   },
 ];
@@ -116,7 +117,7 @@ export default function IdentidadeVisualPage() {
           <article className="card">
             <div
               className="thumb"
-              style={{ background: "linear-gradient(135deg,#003D73,#005CA9)" }}
+              style={{ background: "linear-gradient(135deg,#001364,#0033FF)" }}
             >
               <span>Negativa</span>
             </div>

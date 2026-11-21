@@ -70,7 +70,7 @@ export function AssetForm({ initial }: { initial?: Asset }) {
         .filter(Boolean),
       thumbnailGradient:
         initial?.thumbnailGradient ??
-        "linear-gradient(135deg,#005CA9,#003D73)",
+        "linear-gradient(135deg,#0033FF,#001364)",
       thumbnailLabel: initial?.thumbnailLabel ?? format,
       previewType: initial?.previewType ?? "doc",
       formats: initial?.formats?.length

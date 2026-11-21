@@ -1,13 +1,19 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
 
+/**
+ * Mapeia o component set Figma `button` (2027:25730)
+ * Hierarchy Stroke + CTA secondary-brand + on-color.
+ */
 type Variant =
   | "primary"
   | "secondary"
   | "outline"
   | "soft"
   | "ghost"
-  | "danger";
+  | "danger"
+  | "on-color";
 type Size = "sm" | "md" | "lg";
 
 type CommonProps = {
@@ -16,6 +22,8 @@ type CommonProps = {
   size?: Size;
   className?: string;
   icon?: ReactNode;
+  /** Ícone externo ↗ do Figma (ic_linkexternal) */
+  externalIcon?: boolean;
   style?: CSSProperties;
 };
 
@@ -46,6 +54,19 @@ function buttonClasses(
     .join(" ");
 }
 
+function ExternalIcon({ onDark }: { onDark?: boolean }) {
+  return (
+    <Image
+      className="btn-icon-ext"
+      src={onDark ? "/icons/ic-link-external-white.svg" : "/icons/ic-link-external.svg"}
+      alt=""
+      width={20}
+      height={20}
+      aria-hidden
+    />
+  );
+}
+
 export function Button(props: ButtonAsButton | ButtonAsLink) {
   const {
     children,
@@ -53,9 +74,14 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
     size = "md",
     className = "",
     icon,
+    externalIcon,
     style,
   } = props;
   const classes = buttonClasses(variant, size, className);
+  const showWhiteIcon = variant === "secondary" || variant === "on-color";
+  const trailing =
+    icon ??
+    (externalIcon ? <ExternalIcon onDark={showWhiteIcon} /> : null);
 
   if ("href" in props && props.href) {
     return (
@@ -66,8 +92,8 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
         rel={props.rel}
         style={style}
       >
-        {icon}
         {children}
+        {trailing}
       </Link>
     );
   }
@@ -82,8 +108,8 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
       onClick={buttonProps.onClick}
       aria-label={buttonProps["aria-label"]}
     >
-      {icon}
       {children}
+      {trailing}
     </button>
   );
 }

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AssetCard } from "@/components/portal/AssetCard";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { SearchField } from "@/components/ui/SearchField";
 import { useStore } from "@/lib/store";
 import type { SortOption, ViewMode } from "@/lib/types";
 import { filterAssets } from "@/lib/utils";
@@ -173,26 +174,13 @@ export default function BibliotecaClient() {
 
         <section>
           <div className="library-toolbar">
-            <form
-              className="search-field"
-              style={{ maxWidth: 480 }}
-              onSubmit={(e) => e.preventDefault()}
-              role="search"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.5-3.5" />
-              </svg>
-              <label className="sr-only" htmlFor="lib-search">
-                Buscar na biblioteca
-              </label>
-              <input
-                id="lib-search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Buscar assets..."
-              />
-            </form>
+            <SearchField
+              id="lib-search"
+              className="library-search"
+              value={query}
+              onChange={setQuery}
+              placeholder="Buscar assets..."
+            />
 
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <label className="sr-only" htmlFor="sort">

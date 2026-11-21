@@ -45,7 +45,7 @@ export default function AdminCampanhasPage() {
       name: form.name.trim(),
       slug: slugify(form.name),
       description: form.description.trim(),
-      coverGradient: "linear-gradient(135deg,#005CA9,#F39200)",
+      coverGradient: "linear-gradient(135deg,#0033FF,#FF8A16)",
       coverLabel: form.name.trim().slice(0, 12),
       startDate: form.startDate,
       endDate: form.endDate,

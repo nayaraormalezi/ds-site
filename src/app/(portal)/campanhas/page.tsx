@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { Badge } from "@/components/ui/Badge";
+import { ContentCard } from "@/components/ui/ContentCard";
 import { useStore } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
 
@@ -22,28 +21,28 @@ export default function CampanhasPage() {
 
       <div className="grid-cards">
         {campaigns.map((campaign) => (
-          <Link
+          <ContentCard
             key={campaign.id}
             href={`/campanhas/${campaign.id}`}
-            className="card card-interactive campaign-card"
-          >
-            <div className="thumb" style={{ background: campaign.coverGradient }}>
-              <span>{campaign.coverLabel}</span>
-            </div>
-            <div className="campaign-card__body">
-              <h3>{campaign.name}</h3>
-              <p>{campaign.description}</p>
-              <div className="campaign-meta">
-                <Badge tone={campaign.status === "vigente" ? "vigente" : "encerrada"}>
-                  {campaign.status === "vigente" ? "Vigente" : "Encerrada"}
-                </Badge>
-                <Badge tone="neutral">{campaign.assetIds.length} materiais</Badge>
-                <Badge tone="neutral">
-                  {formatDate(campaign.startDate)} — {formatDate(campaign.endDate)}
-                </Badge>
+            eyebrow={
+              campaign.status === "vigente" ? "Campanha vigente" : "Encerrada"
+            }
+            title={campaign.name}
+            description={`${campaign.description} · ${campaign.assetIds.length} materiais · ${formatDate(campaign.startDate)} — ${formatDate(campaign.endDate)}`}
+            meta={formatDate(campaign.endDate)}
+            actionLabel="Abrir kit"
+            media={
+              <div
+                className="thumb"
+                style={{
+                  background: campaign.coverGradient,
+                  aspectRatio: "1/1",
+                }}
+              >
+                <span>{campaign.coverLabel}</span>
               </div>
-            </div>
-          </Link>
+            }
+          />
         ))}
       </div>
     </div>
